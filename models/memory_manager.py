@@ -19,6 +19,22 @@ class MemoryManager:
         self.executing = []
         self.finished = []
 
+
+    def print_tasks(self):
+        print("-------------TAREAS POR EJECUTAR-------------")
+        for task in self.tasks:
+            print(task)
+    
+    def print_executing_tasks(self):
+        print("-------------TAREAS EJECUTANDO-------------")
+        for task in self.executing:
+            print(task)
+    
+    def print_finished_tasks(self):
+        print("-------------TAREAS FINALIZADAS-------------")
+        for task in self.finished:
+            print(task)
+    
     # Simulacion principal del administrador de memoria
     def execute_tasks(self):
         print('-------------COMIENZO SIMULACION-------------')
@@ -26,9 +42,11 @@ class MemoryManager:
         # Mientras haya procesos cargados se itera
         while self.tasks:
             print(f'Tiempo: {time}')
-            # Primero se verifican los espacios de particiones libres
-            self.release_memory(time)
+            # Primero se verifican las tareas que pueden haber terminado
+            # Para liberar sus particiones y defragmentar
+            self.check_finished_tasks(time)
             # Siguiente tarea por ejecutar
+            self.print_tasks()
             next_task = self.tasks[0]
             print(f'Siguiente tarea a ubicar: {next_task}')
             allocated = self.selection_algorithm.get_partition(next_task, self.memory)
@@ -37,8 +55,8 @@ class MemoryManager:
             if allocated:
                 print(f'Comienza tarea: {next_task}')
                 next_task.init_time = time
-                self.executing.append(next_task)
-                self.tasks.remove(next_task)
+                self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
+                self.print_executing_tasks()
             else:
                 print(f'No se encontro lugar para tarea: {next_task}')
             time += 1
@@ -46,7 +64,7 @@ class MemoryManager:
         self.calculate_results()
 
     # Verifica los lugares que fueron ocupados y luego se desocuparon para defragmentar
-    def release_memory(self, time):
+    def check_finished_tasks(self, time):
         print('Liberando memoria')
         finished_tasks = []
         for task in self.executing:
@@ -54,11 +72,11 @@ class MemoryManager:
             # Y se inserta en finished
             if time == (task.time_requested + task.init_time):
                 finished_tasks.append(task)
-                self.finished.append(task)
-                self.executing.remove(task)
+                self.finished.append(self.executing.pop(self.executing.index(task)))
         # En base a las tareas terminadas, se liberan las particiones correspondientes
         if finished_tasks:
             self.memory.release_partitions(finished_tasks)
+        self.print_finished_tasks()
 
     # Utiliza la clase encargada de seleccionar donde se ubicara la tarea a ejecutar
     # Y retorna true o false en base al exito de la funcion
