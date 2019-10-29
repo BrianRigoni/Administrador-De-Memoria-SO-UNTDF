@@ -10,4 +10,7 @@ class Task:
         return self.name
 
     def __eq__(self, name):
-        return self.name == name
+        if isinstance(other, Task):
+            return self.name == other.name
+        return False
+
