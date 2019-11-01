@@ -40,7 +40,7 @@ class MemoryManager:
         print('-------------COMIENZO SIMULACION-------------')
         time = 0
         # Mientras haya procesos cargados se itera
-        while self.tasks:
+        while self.tasks or self.executing:
             print(f'Tiempo: {time}')
             # Primero se verifican las tareas que pueden haber terminado
             # Para liberar sus particiones y defragmentar
@@ -49,12 +49,14 @@ class MemoryManager:
             self.print_tasks()
             next_task = self.tasks[0]
             print(f'Siguiente tarea a ubicar: {next_task}')
-            allocated = self.selection_algorithm.get_partition(next_task, self.memory)
+            partition = self.selection_algorithm.get_partition(next_task, self.memory)
+
             # Si se pudo ubicar la tarea en memoria, se ubica en executing y se borra de
             # los procesos que faltan cargar
-            if allocated:
-                print(f'Comienza tarea: {next_task}')
+            if partition:
+                print(f'Comienza tarea: {next_task} en tiempo {time}')
                 next_task.init_time = time
+                self.memory.create_partition_wtask(next_task, partition) 
                 self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
                 self.print_executing_tasks()
             else:
@@ -77,18 +79,6 @@ class MemoryManager:
         if finished_tasks:
             self.memory.release_partitions(finished_tasks)
         self.print_finished_tasks()
-
-    # Utiliza la clase encargada de seleccionar donde se ubicara la tarea a ejecutar
-    # Y retorna true o false en base al exito de la funcion
-    def allocate_task(self, task):
-        print('Ubicando tarea')
-        position = self.selection_algorithm.get_position(task)
-        if position:
-            print(f'{task} sera ubicada en: {position}')
-            return True
-        else:
-            print(f'{task} no pudo ser ubicada en memoria')
-            return False
 
     # Calcula los resultados de la simulacion
     def calculate_results(self):
