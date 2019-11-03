@@ -8,12 +8,10 @@ class FirstFit(ISelectionAlgorithm):
 
     def get_partition(self, task, memory):
         print('FirstFit ejecutando seleccion de particion')
-        for partition in memory.partitions:
-            if partition.space_assigned >= task.space_requested:
-                new_partition = Partition(task.space_requested, task)
-                # memory.create_partition_wtask(new_partition, partition)
+        for idx, partition in enumerate(memory.partitions):
+            if (partition.task == None) and (partition.space_assigned >= task.space_requested):
                 print('FirstFit encontro lugar')
-                return True
+                return partition # Con la primera que encuentra ya retorna la particion sobre la cual asignar
         print('FirstFit no fue capaz de encontrar particion')
-        return False
+        return None
 

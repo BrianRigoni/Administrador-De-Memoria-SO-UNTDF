@@ -7,7 +7,10 @@ class Task:
         self.init_time = 0
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.space_requested} Kb'
 
-    def __eq__(self, name):
-        return self.name == name
+    def __eq__(self, other):
+        if isinstance(other, Task):
+            return self.name == other.name
+        return False
+
