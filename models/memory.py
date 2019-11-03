@@ -23,7 +23,37 @@ class Memory:
     # Recorro aquellas particiones que tienen None y sean contiguas
     # Para agruparlas en una misma particion
     def defrag(self):
-        pass
+        new_partitions = []
+        oldp_idx = 0
+        newp_idx = 0
+        # Recorro todas las particiones ubicando aquellas
+        # que no tengan tareas y sean contiguas
+        while oldp_idx <= len(self.partitions):
+            partition = self.partitions[oldp_idx]
+            if partition.task != None:
+                partition.pid = newp_idx
+                print('(Defrag) Copia de particion ocupada', partition)
+                new_partitions.append(partition)
+                oldp_idx += 1
+            else:
+                print('(Defrag) Copia de particion libre', partition) 
+                new_part = Partition(pid=newp_idx, space_assigned=partition.space_assigned, task=None)
+                found_takenp = False
+                while (not found_takenp) and (oldp_idx < len(self.partitions)):
+                    oldp_idx += 1
+                    try:
+                        partition2 = self.partitions[oldp_idx]
+                    except IndexError:
+                        found_takenp = True
+                    if partition2.task != None:
+                        found_takenp = True
+                        print('(Defrag) Fin de None contiguo')
+                    else:
+                        new_part.space_assigned += partition2.space_assigned
+                new_partitions.append(new_part)
+            newp_idx += 1
+        # Asignacion de la nueva memoria a la anterior
+        self.partitions = new_partitions
 
     def create_partition_wtask(self, task, selected_partition):
         new_partitions = []
@@ -48,9 +78,10 @@ class Memory:
                     new_partitions.append(free_partition)
             idx += 1
         self.partitions = new_partitions
-        self.print_memory()
 
 
     def print_memory(self):
-        for idx, partition in enumerate(self.partitions):
-            print(idx, partition)
+        print("------------------Memoria-------------------")
+        for partition in self.partitions:
+            print(partition)
+        print("--------------------------------------------")
