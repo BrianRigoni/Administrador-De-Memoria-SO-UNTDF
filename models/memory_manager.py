@@ -24,16 +24,19 @@ class MemoryManager:
         print("-------------TAREAS POR EJECUTAR-------------")
         for task in self.tasks:
             print(task)
-    
+        print("--------------------------------------------")
+
     def print_executing_tasks(self):
         print("-------------TAREAS EJECUTANDO-------------")
         for task in self.executing:
             print(task)
-    
+        print("--------------------------------------------")
+
     def print_finished_tasks(self):
         print("-------------TAREAS FINALIZADAS-------------")
         for task in self.finished:
             print(task)
+        print("--------------------------------------------")
     
     # Simulacion principal del administrador de memoria
     def execute_tasks(self):
@@ -42,9 +45,11 @@ class MemoryManager:
         # Mientras haya procesos cargados se itera
         while self.tasks or self.executing:
             print(f'Tiempo: {time}')
-            # Primero se verifican las tareas que pueden haber terminado
+            # Primero se verifican las tareas que podrian haber terminado
             # Para liberar sus particiones y defragmentar
             self.check_finished_tasks(time)
+            print('Memoria despues de defragmentar')
+            self.memory.print_memory()
             # Siguiente tarea por ejecutar
             self.print_tasks()
             next_task = self.tasks[0]
@@ -59,8 +64,12 @@ class MemoryManager:
                 self.memory.create_partition_wtask(next_task, partition) 
                 self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
                 self.print_executing_tasks()
+                print('Memoria despues de insertar tarea')
+                self.memory.print_memory()
             else:
                 print(f'No se encontro lugar para tarea: {next_task}')
+                print('Memoria despues de intentar insertar tarea')
+                self.memory.print_memory()
             time += 1
         # Cuando ya no quedan mas tareas se calculan los resultados
         self.calculate_results()

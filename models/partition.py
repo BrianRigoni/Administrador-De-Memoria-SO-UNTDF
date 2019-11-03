@@ -6,9 +6,9 @@ class Partition:
 
     def __str__(self):
         if self.task == None:
-            return f'Particion de {self.space_assigned}Kb libre'
+            return f'Particion {self.pid} de {self.space_assigned}Kb libre'
         else:
-            return f'Particion de {self.space_assigned}Kb Ocupada con {self.task}'
+            return f'Particion {self.pid} Ocupada con {self.task}'
  
 
     def __eq__(self, other):
