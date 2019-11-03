@@ -48,28 +48,30 @@ class MemoryManager:
             # Primero se verifican las tareas que podrian haber terminado
             # Para liberar sus particiones y defragmentar
             self.check_finished_tasks(time)
-            print('Memoria despues de defragmentar')
+            print('Memoria previo a intento de insercion de tarea')
             self.memory.print_memory()
             # Siguiente tarea por ejecutar
             self.print_tasks()
-            next_task = self.tasks[0]
-            print(f'Siguiente tarea a ubicar: {next_task}')
-            partition = self.selection_algorithm.get_partition(next_task, self.memory)
+            if self.tasks:
+                next_task = self.tasks[0]
+                print(f'Siguiente tarea a ubicar: {next_task}')
+                partition = self.selection_algorithm.get_partition(next_task, self.memory)
 
-            # Si se pudo ubicar la tarea en memoria, se ubica en executing y se borra de
-            # los procesos que faltan cargar
-            if partition:
-                print(f'Comienza tarea: {next_task} en tiempo {time}')
-                next_task.init_time = time
-                self.memory.create_partition_wtask(next_task, partition) 
-                self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
-                self.print_executing_tasks()
-                print('Memoria despues de insertar tarea')
-                self.memory.print_memory()
-            else:
-                print(f'No se encontro lugar para tarea: {next_task}')
-                print('Memoria despues de intentar insertar tarea')
-                self.memory.print_memory()
+                # Si se pudo ubicar la tarea en memoria, se ubica en executing y se borra de
+                # los procesos que faltan cargar
+                if partition:
+                    print(f'Comienza tarea: {next_task} en tiempo {time}')
+                    next_task.init_time = time
+                    next_task.loaded = True
+                    self.memory.create_partition_wtask(next_task, partition) 
+                    self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
+                    self.print_executing_tasks()
+                    print('Memoria despues de insertar tarea')
+                    self.memory.print_memory()
+                else:
+                    print(f'No se encontro lugar para tarea: {next_task}')
+                    print('Memoria despues de intentar insertar tarea')
+                    self.memory.print_memory()
             time += 1
         # Cuando ya no quedan mas tareas se calculan los resultados
         self.calculate_results()
@@ -83,9 +85,13 @@ class MemoryManager:
             # Y se inserta en finished
             if time == (task.time_requested + task.init_time):
                 finished_tasks.append(task)
-                self.finished.append(self.executing.pop(self.executing.index(task)))
+                print('Termino ', task)
+                self.finished.append(task)
         # En base a las tareas terminadas, se liberan las particiones correspondientes
         if finished_tasks:
+            for task in finished_tasks:
+                self.executing.remove(task)
+            print('Terminaron tareas => Deframentar')
             self.memory.release_partitions(finished_tasks)
         self.print_finished_tasks()
 
