@@ -28,7 +28,9 @@ class Memory:
         newp_idx = 0
         # Recorro todas las particiones ubicando aquellas
         # que no tengan tareas y sean contiguas
+        print('Defragmentador iniciando')
         while oldp_idx <= len(self.partitions):
+            print('Deframentando...')
             partition = self.partitions[oldp_idx]
             if partition.task != None:
                 partition.pid = newp_idx
@@ -44,7 +46,9 @@ class Memory:
                     try:
                         partition2 = self.partitions[oldp_idx]
                     except IndexError:
-                        found_takenp = True
+                        print("(Defrag) Ultima particion libre IndexError")
+                        oldp_idx += 1
+                        break
                     if partition2.task != None:
                         found_takenp = True
                         print('(Defrag) Fin de None contiguo')
