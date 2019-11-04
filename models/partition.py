@@ -5,7 +5,7 @@ class Partition:
         self.task = task
 
     def __str__(self):
-        if self.task == None:
+        if self.task is None:
             return f'Particion {self.pid} de {self.space_assigned}Kb libre'
         else:
             return f'Particion {self.pid} Ocupada con {self.task}'

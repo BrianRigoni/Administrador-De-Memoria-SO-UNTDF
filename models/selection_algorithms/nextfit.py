@@ -9,4 +9,11 @@ class NextFit(ISelectionAlgorithm):
 
     def get_partition(self, task, memory):
         print('NextFit ejecutando seleccion de particion')
+        for partition in memory.partitions[self.pointer:]:
+            if (partition.task is None) and (partition.space_assigned >= task.space_requested):
+                print('NextFit encontro lugar')
+                return partition
+        print('NextFit no fue capaz de encontrar particion')
+        return None
+
 

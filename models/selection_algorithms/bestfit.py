@@ -1,16 +1,24 @@
 from .iselectionalgorithm import ISelectionAlgorithm
 from ..partition import Partition
+from ..task import Task
 
 
 class BestFit(ISelectionAlgorithm):
     def __init__(self):
         pass
 
-    def get_partition(self, task, memory):
+    def get_partition(self, task: Task, memory):
         print('BestFit ejecutando seleccion de particion')
-        selected_partition = None
+        possibles_partitions = []
         for idx, partition in enumerate(memory.partitions):
-            if (partition.task == None) and (partition.space_assigned >= task.space_required) and (partition.space_assigned < selected_partition.space_assigned):
-                    selected_partition = partition
-                    selected.partition.pid = idx
-        return selected_partition if selected_partition else None
+            if (partition.task is None) and (partition.space_assigned >= task.space_requested):
+                possibles_partitions.append(partition)
+        try:
+            part = possibles_partitions[0]
+        except IndexError:
+            part = None
+        for partition in possibles_partitions[1:]:
+            if partition.space_assigned < part.space_assigned:
+                part = partition
+        return part
+
