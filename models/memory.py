@@ -13,22 +13,50 @@ class Memory:
     # Se recibe una lista de tareas que ya terminaron
     # A partir de esa lista se ubica que particiones ocupaban
     # Cuando se encuentra la tarea se le asigna None a la particion
-    # Y se verifican los espacios contiguos
-    def release_partition(self, task):
-        new_partitions = []
-        for idx, partition in enumerate(self.partitions):
-            if partition.task == task:
+    def release_partitions(self, tasks):
+        for partition in self.partitions:
+            if partition.task in tasks:
                 partition.task = None
-                new_partition = Partition(pid=idx, space_assigned=partition.space_assigned, task=None)
-                left_part = self.partitions[idx-1] if (self.partitions[idx-1].task is None) else None
-                right_part = self.partitions[idx+1] if (self.partitions[idx+1].task is None) else None
-                if left_part:
-                    new_partition.space_assigned += left_part.space_assigned
-                if right_part:
-                    new_partition.space_assigned += right_part.space_assigned
-                new_partitions.append(new_partition)
-            else:
+        self.defrag()
+
+    # Luego de liberar particiones
+    # Recorro aquellas particiones que tienen None y sean contiguas
+    # Para agruparlas en una misma particion
+    def defrag(self):
+        new_partitions = []
+        oldp_idx = 0
+        newp_idx = 0
+        # Recorro todas las particiones ubicando aquellas
+        # que no tengan tareas y sean contiguas
+        print('Defragmentador iniciando')
+        while oldp_idx <= len(self.partitions):
+            print('Deframentando...')
+            partition = self.partitions[oldp_idx]
+            if partition.task != None:
+                partition.pid = newp_idx
+                print('(Defrag) Copia de particion ocupada', partition)
                 new_partitions.append(partition)
+                oldp_idx += 1
+            else:
+                print('(Defrag) Copia de particion libre', partition) 
+                new_part = Partition(pid=newp_idx, space_assigned=partition.space_assigned, task=None)
+                found_takenp = False
+                while (not found_takenp) and (oldp_idx < len(self.partitions)):
+                    oldp_idx += 1
+                    try:
+                        partition2 = self.partitions[oldp_idx]
+                    except IndexError:
+                        print("(Defrag) Ultima particion libre IndexError")
+                        oldp_idx += 1
+                        break
+                    if partition2.task != None:
+                        found_takenp = True
+                        print('(Defrag) Fin de None contiguo')
+                    else:
+                        new_part.space_assigned += partition2.space_assigned
+                new_partitions.append(new_part)
+            newp_idx += 1
+        # Asignacion de la nueva memoria a la anterior
         self.partitions = new_partitions
 
     def create_partition_wtask(self, task, selected_partition):
@@ -54,6 +82,7 @@ class Memory:
                     new_partitions.append(free_partition)
             idx += 1
         self.partitions = new_partitions
+
 
     def print_memory(self):
         print("------------------Memoria-------------------")
