@@ -6,10 +6,10 @@ from models import (Task, MemoryManager, BestFit, NextFit,
 PATH_TO_FILE = './datasets/dataset1.txt'
 # Campos para instanciar el administrador de memoria
 tasks = []
-selection_algorithm = FirstFit() # Cambiar por cualquier estrategia de seleccion
-selection_time = 35
-assignation_time = 2
-release_time = 2
+selection_algorithm = NextFit() # Cambiar por cualquier estrategia de seleccion
+selection_time = 0
+assignation_time = 0
+release_time = 0
 memory_qty = 150
 
 
