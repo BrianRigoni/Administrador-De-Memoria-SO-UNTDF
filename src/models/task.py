@@ -5,6 +5,7 @@ class Task:
         self.time_requested = int(time_requested)
         self.loaded = False
         self.init_time = 0
+        self.normalized_return_time = 0
 
     def __str__(self):
         return f'{self.name} {self.space_requested} Kb'

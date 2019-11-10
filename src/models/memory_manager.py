@@ -15,10 +15,15 @@ class MemoryManager:
         self.tasks = tasks
         # Variables que son para la simulacion
         self.memory = Memory(space=memory_qty)
-        self.results = SimulationResults()
         self.executing = []
         self.finished = []
         self.time = 0
+        # Resultados simulacion
+        # La fragmentacion externa se calcula en cada instancia de tiempo
+        # hasta que se ejecuto la ultima tarea, por lo cual, se calcula
+        # mientras se esta en tiempo de seleccion/asignacion/liberacion
+        self.external_fragmentation_idx = 0
+        self.return_time = 0
 
     def print_tasks(self):
         print("-------------TAREAS POR EJECUTAR-------------")
@@ -57,26 +62,34 @@ class MemoryManager:
                 print(f'(Tiempo de seleccion) {self.selection_time}')
                 self.time += self.selection_time
                 partition = self.selection_algorithm.get_partition(next_task, self.memory)
-
+                # Cuando se esta escogiendo la particion, se debe sumar la fragmentacion
+                # que existe en ese tiempo actual (tseleccion)
+                self.external_fragmentation_idx += self.memory.get_empty_space()
                 # Si se pudo ubicar la tarea en memoria, se ubica en executing y se borra de
                 # los procesos que faltan cargar
                 if partition:
                     print(f'(Tiempo de asignacion) {self.assignation_time}')
+                    next_task.init_time = self.time
                     self.time += self.assignation_time
+                        # Cuando se esta insertando la tarea se debe calcular el indice de fragmentacion externa 
                     self.memory.create_partition_wtask(next_task, partition) 
                     self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
                     print(f'Comienza tarea: {next_task} en tiempo {self.time}')
-                    next_task.init_time = self.time
+                    self.external_fragmentation_idx += self.memory.get_empty_space()
+                    print(f"Tiempo {self.time}: Fragmentacion: {self.external_fragmentation_idx}")
                     next_task.loaded = True
                     self.print_executing_tasks()
                     print('Memoria despues de insertar tarea')
                     self.memory.print_memory()
                 else:
+                    # Si no se encontro lugar de igual modo se debe calcular el indice de fragmentacion externa
+                    self.external_fragmentation_idx += self.memory.get_empty_space()
                     print(f'No se encontro lugar para tarea: {next_task}')
                     print('Memoria despues de intentar insertar tarea')
                     self.memory.print_memory()
             self.time += 1
         # Cuando ya no quedan mas tareas se calculan los resultados
+        self.return_time = self.time - 1
         self.calculate_results()
 
     # Verifica los lugares que fueron ocupados y luego se desocuparon para defragmentar
@@ -89,18 +102,33 @@ class MemoryManager:
             if self.time >= (task.time_requested + task.init_time):
                 finished_tasks.append(task)
                 print('Termino ', task)
+                # Calculo tiempo de retorno normalizado Ttotal / Tservicio
+                print(f"Tiempo total: {self.time-task.init_time}")
+                print(f"Tiempo servicio: {task.time_requested}")
+                task.normalized_return_time = (self.time - task.init_time) / task.time_requested
+                print(f'Tiempo retorno normalizado: {task.normalized_return_time}')
                 self.finished.append(task)
         # En base a las tareas terminadas, se liberan las particiones correspondientes
         if finished_tasks:
+            # Tiempo de liberacion mientras se debe saber la fragmentacion en ese instante
+            # Ademas, **solo se calcula si todavia hay tareas por ejecutar**
+            if self.tasks:
+                self.external_fragmentation_idx += self.memory.get_empty_space()
             print('Terminaron tareas => Deframentar')
             self.memory.release_partitions(finished_tasks)
             for task in finished_tasks:
-                self.time += self.release_time
-                print(f'(Tiempo de liberacion) {self.release_time}')
+                for i in range(self.release_time):
+                    print(f"Tiempo {self.time}: Fragmentacion: {self.external_fragmentation_idx}")
+                    self.time += 1
+                print(f'(Tiempo de liberacion) {self.release_time} => Tiempo actual: {self.time}')
                 self.executing.remove(task)
         self.print_finished_tasks()
 
     # Calcula los resultados de la simulacion
     def calculate_results(self):
         print('Calculando resultados')
-        pass
+        print(f'Tiempo de retorno de la tanda: {self.return_time}')
+        print(f'Indice de fragmentacion externa: {self.external_fragmentation_idx}')
+        print('Tiempos de retorno normalizados para cada tarea: ')
+        for task in self.finished:
+            print(f'    * {task}: {task.normalized_return_time}')
