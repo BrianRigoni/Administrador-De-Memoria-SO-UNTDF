@@ -83,6 +83,12 @@ class Memory:
             idx += 1
         self.partitions = new_partitions
 
+    def get_empty_space(self):
+        space = 0
+        for partition in self.partitions:
+            if partition.task is None:
+                space += partition.space_assigned
+        return space
 
     def print_memory(self):
         print("------------------Memoria-------------------")
