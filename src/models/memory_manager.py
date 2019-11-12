@@ -107,9 +107,10 @@ class MemoryManager:
                 finished_tasks.append(task)
                 print('Termino ', task)
                 # Calculo tiempo de retorno normalizado Ttotal / Tservicio
-                print(f"Tiempo total: {self.time-task.init_time}")
+                total_time = self.time - task.init_time + self.assignation_time + self.selection_time
+                print(f"Tiempo total: {total_time}")
                 print(f"Tiempo servicio: {task.time_requested}")
-                task.normalized_return_time = (self.time - task.init_time) / task.time_requested
+                task.normalized_return_time = total_time / task.time_requested
                 print(f'Tiempo retorno normalizado: {task.normalized_return_time}')
                 self.finished.append(task)
         # En base a las tareas terminadas, se liberan las particiones correspondientes
