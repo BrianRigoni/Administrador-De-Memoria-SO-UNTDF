@@ -93,7 +93,7 @@ class MemoryManager:
                     self.memory.print_memory()
             self.time += 1
         # Cuando ya no quedan mas tareas se calculan los resultados
-        self.return_time = self.time - 1
+        self.return_time = self.time - 2
         self.calculate_results()
 
     # Verifica los lugares que fueron ocupados y luego se desocuparon para defragmentar
@@ -117,18 +117,21 @@ class MemoryManager:
             print('Terminaron tareas => Deframentar')
             self.memory.release_partitions(finished_tasks)
             for task in finished_tasks:
+                print(task)
                 for i in range(self.release_time):
                     # Tiempo de liberacion mientras se debe saber la fragmentacion en ese instante
                     # Ademas, **solo se calcula si todavia hay tareas por ejecutar**
                     if self.tasks:
                         self.increment_external_fragmentation()
+                        if len(finished_tasks) > 1:
+                            extra = 0
+                            last_task_space = finished_tasks[len(finished_tasks)-1].space_requested
+                            for task2 in finished_tasks:
+                                extra += abs(last_task_space - task2.space_requested)
+                            self.external_fragmentation_idx -= extra
                     self.time += 1
                 print(f'(Tiempo de liberacion) {self.release_time} => Tiempo actual: {self.time}')
                 self.executing.remove(task)
-        # else:
-        #     if self.tasks and self.time > 0:
-        #         print("Fragmentacion: ", self.memory.get_empty_space())
-        #         self.external_fragmentation_idx += self.memory.get_empty_space()
 
         self.print_finished_tasks()
 
