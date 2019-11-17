@@ -1,6 +1,6 @@
 from .memory import Memory
 from .simulation_results import SimulationResults
-
+from .selection_algorithms import NextFit
 
 class MemoryManager:
 
@@ -69,6 +69,14 @@ class MemoryManager:
                 self.increment_external_fragmentation()
                 self.time += self.selection_time
                 partition = self.selection_algorithm.get_partition(next_task, self.memory)
+                # Solo se corrigen punteros cuando es NextFit
+                if type(self.selection_algorithm) is NextFit:
+                    print("chequeo de instancia de clase, memoria antes fix pointers")
+                    self.memory.print_memory()
+                    print("Particion encontrada: ", partition)
+                    self.memory.fix_pointers(partition)
+                    print("chequeo de instancia de clase, memoria despues fix pointers")
+                    self.memory.print_memory()
                 # Si se pudo ubicar la tarea en memoria, se ubica en executing y se borra de
                 # los procesos que faltan cargar
                 if partition:
