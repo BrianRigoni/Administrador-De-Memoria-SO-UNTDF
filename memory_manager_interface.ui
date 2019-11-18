@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButton_simulate">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -27,7 +27,7 @@
      <string>Simular</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="cbx_strategy">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -57,7 +57,7 @@
      </property>
     </item>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="lineEdit_file">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -67,7 +67,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_file">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -80,7 +80,7 @@
      <string>Archivo</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="lineEdit_selection">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -90,7 +90,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="lineEdit_assignation">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -100,7 +100,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="lineEdit_release">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -110,7 +110,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="label_strategy">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -123,7 +123,7 @@
      <string>Estrategia de Seleccion</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_selection">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -136,7 +136,7 @@
      <string>Tiempo de Seleccion</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="label_assignation">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -149,7 +149,7 @@
      <string>Tiempo de Asignacion</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="label_release">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -162,7 +162,7 @@
      <string>Tiempo de Liberacion</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="pushButton_browse">
     <property name="geometry">
      <rect>
       <x>330</x>
