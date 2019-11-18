@@ -29,7 +29,7 @@ class Memory:
         # Recorro todas las particiones ubicando aquellas
         # que no tengan tareas y sean contiguas
         print('Defragmentador iniciando')
-        while oldp_idx <= len(self.partitions):
+        while oldp_idx < len(self.partitions):
             print('Deframentando...')
             partition = self.partitions[oldp_idx]
             if partition.task is not None:
