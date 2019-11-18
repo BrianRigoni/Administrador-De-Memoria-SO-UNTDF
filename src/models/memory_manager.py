@@ -1,6 +1,6 @@
 from .memory import Memory
 from .simulation_results import SimulationResults
-
+from .selection_algorithms import NextFit
 
 class MemoryManager:
 
@@ -69,6 +69,14 @@ class MemoryManager:
                 self.increment_external_fragmentation()
                 self.time += self.selection_time
                 partition = self.selection_algorithm.get_partition(next_task, self.memory)
+                # Solo se corrigen punteros cuando es NextFit
+                if type(self.selection_algorithm) is NextFit:
+                    print("chequeo de instancia de clase, memoria antes fix pointers")
+                    self.memory.print_memory()
+                    print("Particion encontrada: ", partition)
+                    self.memory.fix_pointers(partition)
+                    print("chequeo de instancia de clase, memoria despues fix pointers")
+                    self.memory.print_memory()
                 # Si se pudo ubicar la tarea en memoria, se ubica en executing y se borra de
                 # los procesos que faltan cargar
                 if partition:
@@ -107,9 +115,10 @@ class MemoryManager:
                 finished_tasks.append(task)
                 print('Termino ', task)
                 # Calculo tiempo de retorno normalizado Ttotal / Tservicio
-                print(f"Tiempo total: {self.time-task.init_time}")
+                total_time = self.time - task.init_time + self.assignation_time + self.selection_time
+                print(f"Tiempo total: {total_time}")
                 print(f"Tiempo servicio: {task.time_requested}")
-                task.normalized_return_time = (self.time - task.init_time) / task.time_requested
+                task.normalized_return_time = total_time / task.time_requested
                 print(f'Tiempo retorno normalizado: {task.normalized_return_time}')
                 self.finished.append(task)
         # En base a las tareas terminadas, se liberan las particiones correspondientes
