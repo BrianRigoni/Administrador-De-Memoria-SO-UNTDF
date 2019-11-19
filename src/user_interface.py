@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import tkinter as tk
 from tkinter import filedialog
 from models import BestFit, NextFit, FirstFit, WorstFit, MemoryManager, Task
-
+from controller import Controller
 
 class Ui_MainWindow(object):
 
@@ -34,34 +34,10 @@ class Ui_MainWindow(object):
             return NextFit()
 
 
-    # PARA CARGA DE DATASET
-    # Obtiene el contenido de un archivo
-
-    def get_file_contents(self, file_path):
-        file = open(file_path, "r")
-        contents = file.readlines()
-        file.close()
-        return contents
-
-
-    # En base al archivo leido, instancia las tareas
-    def fill_tasks(self, data):
-        print("-------------CARGANDO DATASET-------------")
-        tasks = []
-        for line in data:
-            splitted_values = line.split(',')
-            task_name = splitted_values[0]
-            task_space = splitted_values[1]
-            task_time = splitted_values[2]
-            task = Task(name=task_name, space_requested=task_space, time_requested=task_time)
-            tasks.append(task)
-            print(task)
-        return tasks
-
     def start_simulation(self):
         # Necesario para instanciar
-        file_contents = self.get_file_contents(self.lineEdit_file.text())
-        tasks = self.fill_tasks(file_contents) 
+        file_contents = self.controller.get_file_contents(self.lineEdit_file.text())
+        tasks = self.controller.fill_tasks(file_contents) 
         strategy = self.get_strategy()
         selection_time = int(self.lineEdit_selection.text())
         assignation_time = int(self.lineEdit_assignation.text())
@@ -71,6 +47,7 @@ class Ui_MainWindow(object):
         memory_manager.execute_tasks()
 
     def setupUi(self, MainWindow):
+        self.controller = Controller()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(456, 370)
         self.centralwidget = QtWidgets.QWidget(MainWindow)

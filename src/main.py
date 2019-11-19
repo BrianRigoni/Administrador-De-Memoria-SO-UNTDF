@@ -3,10 +3,10 @@ from models import (Task, MemoryManager, BestFit, NextFit,
 
 
 # Declaracion de variables
-PATH_TO_FILE = './datasets/dataset1.txt'
+PATH_TO_FILE = 'dataset1.txt'
 # Campos para instanciar el administrador de memoria
 tasks = []
-selection_algorithm = NextFit()  # Cambiar por cualquier estrategia de seleccion
+selection_algorithm = WorstFit()  # Cambiar por cualquier estrategia de seleccion
 selection_time = 1
 assignation_time = 1
 release_time = 1
@@ -28,7 +28,9 @@ def fill_tasks(data):
     print("-------------CARGANDO DATASET-------------")
     tasks = []
     for line in data:
+        print(line)
         splitted_values = line.split(',')
+        print(splitted_values)
         task_name = splitted_values[0]
         task_space = splitted_values[1]
         task_time = splitted_values[2]
