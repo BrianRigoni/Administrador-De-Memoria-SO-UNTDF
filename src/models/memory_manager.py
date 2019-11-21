@@ -66,8 +66,9 @@ class MemoryManager:
                 print(f'(Tiempo de seleccion) {self.selection_time}')
                 # Cuando se esta escogiendo la particion, se debe sumar la fragmentacion
                 # que existe en ese tiempo actual (tseleccion)
-                self.increment_external_fragmentation()
-                self.time += self.selection_time
+                if self.selection_time > 0:
+                    self.time += self.selection_time
+                    self.increment_external_fragmentation()
                 partition = self.selection_algorithm.get_partition(next_task, self.memory)
                 # Solo se corrigen punteros cuando es NextFit
                 if type(self.selection_algorithm) is NextFit:
@@ -81,10 +82,11 @@ class MemoryManager:
                 # los procesos que faltan cargar
                 if partition:
                     print(f'(Tiempo de asignacion) {self.assignation_time}')
-                    self.increment_external_fragmentation()
-                    self.time += self.assignation_time
-                    next_task.init_time = self.time
                     # Cuando se esta insertando la tarea se debe calcular el indice de fragmentacion externa 
+                    if self.assignation_time > 0:
+                        self.increment_external_fragmentation()
+                        self.time += self.assignation_time
+                    next_task.init_time = self.time
                     self.memory.create_partition_wtask(next_task, partition) 
                     self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
                     print(f'Comienza tarea: {next_task} en tiempo {self.time}')
