@@ -18,12 +18,10 @@ class NextFit(ISelectionAlgorithm):
         file_writer.write_content('NextFit ejecutando seleccion de particion')
         iterations = 0
         if self.pointer >= len(memory.partitions):
-            file_writer.write_content("Self pointer", self.pointer)
-            file_writer.write_content("Indice no apunta correctamente debido a concatenacion de particiones")
             self.get_pointer(memory.partitions)
-            file_writer.write_content("Self pointer desp get", self.pointer)
 
-        file_writer.write_content('Puntero de nextfit se encuentra en ', memory.partitions[self.pointer])
+
+        file_writer.write_content('Puntero de nextfit se encuentra en ' + memory.partitions[self.pointer].__str__())
         while iterations < len(memory.partitions):
             partition = memory.partitions[self.pointer]
             if (partition.task is None) and (partition.space_assigned >= task.space_requested):

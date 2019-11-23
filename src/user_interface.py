@@ -12,6 +12,7 @@ import tkinter as tk
 from tkinter import filedialog
 from models import BestFit, NextFit, FirstFit, WorstFit, MemoryManager, Task
 from controller import Controller
+from PyQt5.QtWidgets import QMessageBox
 
 class Ui_MainWindow(object):
 
@@ -46,6 +47,16 @@ class Ui_MainWindow(object):
         memory_manager = MemoryManager(selection_algorithm=strategy, tasks=tasks, memory_qty=memory_qty, 
                                         selection_time=selection_time, assignation_time=assignation_time, release_time=release_time)
         memory_manager.execute_tasks(self.controller.file_writer)
+        self.showdialog()
+
+
+    def showdialog(self): 
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Simulacion realizada con exito!")
+        msg.setWindowTitle("Administrador de Memoria - SO - Alerta")
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()
 
     def setupUi(self, MainWindow):
         self.controller = Controller()

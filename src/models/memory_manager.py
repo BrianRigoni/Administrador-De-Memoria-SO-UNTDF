@@ -72,7 +72,6 @@ class MemoryManager:
                 partition = self.selection_algorithm.get_partition(next_task, self.memory, file_writer)
                 # Solo se corrigen punteros cuando es NextFit
                 if type(self.selection_algorithm) is NextFit:
-                    file_writer.write_content("Particion encontrada: ", partition)
                     self.memory.fix_pointers(partition, file_writer)
 
                 # Si se pudo ubicar la tarea en memoria, se ubica en executing y se borra de
