@@ -1,9 +1,8 @@
 from .partition import Partition
-
+from file_writer import FileWriter
 
 class Memory:
     def __init__(self, space):
-        print('Memoria creada')
         self.space = space
         self.partitions = []
         # Inicialmente la memoria es una particion del tamano completo
@@ -13,32 +12,32 @@ class Memory:
     # Se recibe una lista de tareas que ya terminaron
     # A partir de esa lista se ubica que particiones ocupaban
     # Cuando se encuentra la tarea se le asigna None a la particion
-    def release_partitions(self, tasks):
+    def release_partitions(self, tasks, file_writer: FileWriter):
         for partition in self.partitions:
             if partition.task in tasks:
                 partition.task = None
-        self.defrag()
+        self.defrag(file_writer)
 
     # Luego de liberar particiones
     # Recorro aquellas particiones que tienen None y sean contiguas
     # Para agruparlas en una misma particion
-    def defrag(self):
+    def defrag(self, file_writer: FileWriter):
         new_partitions = []
         oldp_idx = 0
         newp_idx = 0
         # Recorro todas las particiones ubicando aquellas
         # que no tengan tareas y sean contiguas
-        print('Defragmentador iniciando')
+        file_writer.write_content('Defragmentador iniciando')
         while oldp_idx < len(self.partitions):
-            print('Deframentando...')
+            file_writer.write_content('Deframentando...')
             partition = self.partitions[oldp_idx]
             if partition.task is not None:
                 partition.pid = newp_idx
-                print('(Defrag) Copia de particion ocupada', partition)
+                file_writer.write_content('(Defrag) Copia de particion ocupada ' + partition.__str__())
                 new_partitions.append(partition)
                 oldp_idx += 1
             else:
-                print('(Defrag) Copia de particion libre', partition) 
+                file_writer.write_content('(Defrag) Copia de particion libre ' + partition.__str__()) 
                 new_part = Partition(pid=newp_idx, space_assigned=partition.space_assigned, task=None)
                 if partition.last_pointed:
                     new_part.last_pointed = True
@@ -48,12 +47,12 @@ class Memory:
                     try:
                         partition2 = self.partitions[oldp_idx]
                     except IndexError:
-                        print("(Defrag) Ultima particion libre")
+                        file_writer.write_content("(Defrag) Ultima particion libre")
                         oldp_idx += 1
                         break
                     if partition2.task is not None:
                         found_takenp = True
-                        print('(Defrag) Fin de None contiguo')
+                        file_writer.write_content('(Defrag) Fin de None contiguo')
                     else:
                         if partition2.last_pointed:
                             new_part.last_pointed = True
@@ -88,17 +87,15 @@ class Memory:
             idx += 1
         self.partitions = new_partitions
 
-    def fix_pointers(self, partition: Partition):
-        print("Fix pointers memoria entrada")
-        self.print_memory()
+    def fix_pointers(self, partition: Partition, file_writer: FileWriter):
+        self.print_memory(file_writer)
         for p in self.partitions:
             # Se desmarca la anterior
             if p.last_pointed:
                 p.last_pointed = False
             if p == partition:
                 p.last_pointed = True
-        print("Fix pointers memoria salida: ")
-        self.print_memory()
+        self.print_memory(file_writer)
 
     def get_empty_space(self):
         space = 0
@@ -107,8 +104,8 @@ class Memory:
                 space += partition.space_assigned
         return space
 
-    def print_memory(self):
-        print("------------------Memoria-------------------")
+    def print_memory(self, file_writer: FileWriter):
+        file_writer.write_content("------------------Memoria-------------------")
         for partition in self.partitions:
-            print(partition)
-        print("--------------------------------------------")
+            file_writer.write_content(partition.__str__())
+        file_writer.write_content("--------------------------------------------")

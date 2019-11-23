@@ -1,14 +1,15 @@
 from .iselectionalgorithm import ISelectionAlgorithm
 from ..partition import Partition
 from ..task import Task
+from file_writer import FileWriter
 
 
 class BestFit(ISelectionAlgorithm):
     def __init__(self):
         pass
 
-    def get_partition(self, task: Task, memory):
-        print('BestFit ejecutando seleccion de particion')
+    def get_partition(self, task: Task, memory, file_writer: FileWriter):
+        file_writer.write_content('BestFit ejecutando seleccion de particion')
         possibles_partitions = []
         for idx, partition in enumerate(memory.partitions):
             if (partition.task is None) and (partition.space_assigned >= task.space_requested):
