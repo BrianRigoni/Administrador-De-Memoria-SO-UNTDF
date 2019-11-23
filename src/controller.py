@@ -1,9 +1,10 @@
 from models import Task
+from file_writer import FileWriter
 
 class Controller:
 
     def __init__(self):
-        pass
+        self.file_writer = FileWriter()
 
     def get_file_contents(self, file_path):
         file = open(file_path, "r")
@@ -14,7 +15,7 @@ class Controller:
 
     # En base al archivo leido, instancia las tareas
     def fill_tasks(self, data):
-        print("-------------CARGANDO DATASET-------------")
+        self.file_writer.write_content("-------------CARGANDO DATASET-------------")
         tasks = []
         for line in data:
             splitted_values = line.split(',')
@@ -23,7 +24,7 @@ class Controller:
             task_time = splitted_values[2]
             task = Task(name=task_name, space_requested=task_space, time_requested=task_time)
             tasks.append(task)
-            print(task)
+            self.file_writer.write_content(task.__str__())
         return tasks
 
 

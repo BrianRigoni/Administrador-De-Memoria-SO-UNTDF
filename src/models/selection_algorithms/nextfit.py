@@ -1,4 +1,5 @@
 from .iselectionalgorithm import ISelectionAlgorithm
+from file_writer import FileWriter
 
 class NextFit(ISelectionAlgorithm):
 
@@ -13,20 +14,20 @@ class NextFit(ISelectionAlgorithm):
                 self.pointer = idx
                 break
 
-    def get_partition(self, task, memory):
-        print('NextFit ejecutando seleccion de particion')
+    def get_partition(self, task, memory, file_writer: FileWriter):
+        file_writer.write_content('NextFit ejecutando seleccion de particion')
         iterations = 0
         if self.pointer >= len(memory.partitions):
-            print("Self pointer", self.pointer)
-            print("Indice no apunta correctamente debido a concatenacion de particiones")
+            file_writer.write_content("Self pointer", self.pointer)
+            file_writer.write_content("Indice no apunta correctamente debido a concatenacion de particiones")
             self.get_pointer(memory.partitions)
-            print("Self pointer desp get", self.pointer)
+            file_writer.write_content("Self pointer desp get", self.pointer)
 
-        print('Puntero de nextfit se encuentra en ', memory.partitions[self.pointer])
+        file_writer.write_content('Puntero de nextfit se encuentra en ', memory.partitions[self.pointer])
         while iterations < len(memory.partitions):
             partition = memory.partitions[self.pointer]
             if (partition.task is None) and (partition.space_assigned >= task.space_requested):
-                print('NextFit encontro lugar')
+                file_writer.write_content('NextFit encontro lugar')
                 return partition
             # Reset del idx para recorrer particiones
             if self.pointer == len(memory.partitions)-1:
@@ -34,7 +35,7 @@ class NextFit(ISelectionAlgorithm):
             else:
                 self.pointer += 1
             iterations+=1
-        print('NextFit no fue capaz de encontrar particion')
+        file_writer.write_content('NextFit no fue capaz de encontrar particion')
         return None
 
 

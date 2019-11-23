@@ -43,8 +43,9 @@ class Ui_MainWindow(object):
         assignation_time = int(self.lineEdit_assignation.text())
         release_time = int(self.lineEdit_release.text())
         memory_qty = int(self.lineEdit_memoryqty.text())
-        memory_manager = MemoryManager(selection_algorithm=strategy, tasks=tasks, memory_qty=memory_qty, selection_time=selection_time, assignation_time=assignation_time, release_time=release_time)
-        memory_manager.execute_tasks()
+        memory_manager = MemoryManager(selection_algorithm=strategy, tasks=tasks, memory_qty=memory_qty, 
+                                        selection_time=selection_time, assignation_time=assignation_time, release_time=release_time)
+        memory_manager.execute_tasks(self.controller.file_writer)
 
     def setupUi(self, MainWindow):
         self.controller = Controller()
