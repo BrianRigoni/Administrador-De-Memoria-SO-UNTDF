@@ -26,19 +26,19 @@ class MemoryManager:
         self.return_time = 0
 
     def print_tasks(self, file_writer: FileWriter):
-        file_writer.write_content("-------------TAREAS POR EJECUTAR-------------")
+        file_writer.write_content(f"-------------TAREAS POR EJECUTAR: Tiempo {self.time}-------------")
         for task in self.tasks:
             file_writer.write_content(task.__str__())
         file_writer.write_content("--------------------------------------------")
 
     def print_executing_tasks(self, file_writer: FileWriter):
-        file_writer.write_content("-------------TAREAS EJECUTANDO-------------")
+        file_writer.write_content(f"-------------TAREAS EJECUTANDO: Tiempo {self.time}---------------")
         for task in self.executing:
             file_writer.write_content(task.__str__())
         file_writer.write_content("--------------------------------------------")
 
     def print_finished_tasks(self, file_writer: FileWriter):
-        file_writer.write_content("-------------TAREAS FINALIZADAS-------------")
+        file_writer.write_content(f"-------------TAREAS FINALIZADAS: Tiempo {self.time}--------------")
         for task in self.finished:
             file_writer.write_content(task.__str__())
         file_writer.write_content("--------------------------------------------")
@@ -67,8 +67,10 @@ class MemoryManager:
                 # Cuando se esta escogiendo la particion, se debe sumar la fragmentacion
                 # que existe en ese tiempo actual (tseleccion)
                 if self.selection_time > 0:
-                    self.time += self.selection_time
-                    self.increment_external_fragmentation(file_writer)
+                    for i in range(self.selection_time):
+                        self.increment_external_fragmentation(file_writer)
+                        self.time += 1
+
                 partition = self.selection_algorithm.get_partition(next_task, self.memory, file_writer)
                 # Solo se corrigen punteros cuando es NextFit
                 if type(self.selection_algorithm) is NextFit:
@@ -80,8 +82,10 @@ class MemoryManager:
                     file_writer.write_content(f'(Tiempo de asignacion) {self.assignation_time}')
                     # Cuando se esta insertando la tarea se debe calcular el indice de fragmentacion externa 
                     if self.assignation_time > 0:
-                        self.increment_external_fragmentation(file_writer)
-                        self.time += self.assignation_time
+                        for i in range(self.assignation_time):
+                            self.increment_external_fragmentation(file_writer)
+                            self.time += 1
+
                     next_task.init_time = self.time
                     self.memory.create_partition_wtask(next_task, partition) 
                     self.executing.append(self.tasks.pop(self.tasks.index(next_task)))
@@ -104,14 +108,14 @@ class MemoryManager:
 
     # Verifica los lugares que fueron ocupados y luego se desocuparon para defragmentar
     def check_finished_tasks(self, file_writer: FileWriter):
-        file_writer.write_content('Liberando memoria')
+        file_writer.write_content(f'Liberando memoria en tiempo: {self.time}')
         finished_tasks = []
         for task in self.executing:
             # Si termino su tiempo se saca de executing
             # Y se inserta en finished
             if self.time >= (task.time_requested + task.init_time):
                 finished_tasks.append(task)
-                file_writer.write_content('Termino ' + task.__str__())
+                file_writer.write_content('Termino ' + task.__str__() + f' en {self.time}')
                 # Calculo tiempo de retorno normalizado Ttotal / Tservicio
                 total_time = self.time - task.init_time + self.assignation_time + self.selection_time
                 file_writer.write_content(f"Tiempo total: {total_time}")
