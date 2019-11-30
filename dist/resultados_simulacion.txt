@@ -12,14 +12,14 @@ T9 50 Kb
 T10 10 Kb
 -------------COMIENZO SIMULACION-------------
 Tiempo: 0
-Liberando memoria
--------------TAREAS FINALIZADAS-------------
+Liberando memoria en tiempo: 0
+-------------TAREAS FINALIZADAS: Tiempo 0--------------
 --------------------------------------------
 Memoria previo a intento de insercion de tarea
 ------------------Memoria-------------------
 Particion 0 de 150Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 0-------------
 T1 20 Kb
 T2 10 Kb
 T3 40 Kb
@@ -33,14 +33,14 @@ T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T1 20 Kb
 (Tiempo de seleccion) 1
-Tiempo 1 / Fragmentacion Externa: 150
+Tiempo 0 / Fragmentacion Externa: 150
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 1 / Fragmentacion Externa: 300
 Comienza tarea: T1 20 Kb en tiempo 2
 Tiempo 2 / Fragmentacion Externa: 430
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 2---------------
 T1 20 Kb
 --------------------------------------------
 Memoria despues de insertar tarea
@@ -49,15 +49,15 @@ Particion 0 Ocupada con T1 20 Kb / puntero: False
 Particion 1 de 130Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 3
-Liberando memoria
--------------TAREAS FINALIZADAS-------------
+Liberando memoria en tiempo: 3
+-------------TAREAS FINALIZADAS: Tiempo 3--------------
 --------------------------------------------
 Memoria previo a intento de insercion de tarea
 ------------------Memoria-------------------
 Particion 0 Ocupada con T1 20 Kb / puntero: False
 Particion 1 de 130Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 3-------------
 T2 10 Kb
 T3 40 Kb
 T4 20 Kb
@@ -70,14 +70,14 @@ T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T2 10 Kb
 (Tiempo de seleccion) 1
-Tiempo 4 / Fragmentacion Externa: 560
+Tiempo 3 / Fragmentacion Externa: 560
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 4 / Fragmentacion Externa: 690
 Comienza tarea: T2 10 Kb en tiempo 5
 Tiempo 5 / Fragmentacion Externa: 810
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 5---------------
 T1 20 Kb
 T2 10 Kb
 --------------------------------------------
@@ -88,8 +88,8 @@ Particion 1 Ocupada con T2 10 Kb / puntero: False
 Particion 2 de 120Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 6
-Liberando memoria
--------------TAREAS FINALIZADAS-------------
+Liberando memoria en tiempo: 6
+-------------TAREAS FINALIZADAS: Tiempo 6--------------
 --------------------------------------------
 Memoria previo a intento de insercion de tarea
 ------------------Memoria-------------------
@@ -97,7 +97,7 @@ Particion 0 Ocupada con T1 20 Kb / puntero: False
 Particion 1 Ocupada con T2 10 Kb / puntero: False
 Particion 2 de 120Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 6-------------
 T3 40 Kb
 T4 20 Kb
 T5 30 Kb
@@ -109,14 +109,14 @@ T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T3 40 Kb
 (Tiempo de seleccion) 1
-Tiempo 7 / Fragmentacion Externa: 930
+Tiempo 6 / Fragmentacion Externa: 930
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 7 / Fragmentacion Externa: 1050
 Comienza tarea: T3 40 Kb en tiempo 8
 Tiempo 8 / Fragmentacion Externa: 1130
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 8---------------
 T1 20 Kb
 T2 10 Kb
 T3 40 Kb
@@ -129,8 +129,8 @@ Particion 2 Ocupada con T3 40 Kb / puntero: False
 Particion 3 de 80Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 9
-Liberando memoria
-Termino T1 20 Kb
+Liberando memoria en tiempo: 9
+Termino T1 20 Kb en 9
 Tiempo total: 9
 Tiempo servicio: 6
 Tiempo retorno normalizado: 1.5
@@ -149,7 +149,7 @@ Deframentando...
 T1 20 Kb
 Tiempo 9 / Fragmentacion Externa: 1230
 (Tiempo de liberacion) 1 => Tiempo actual: 10
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 10--------------
 T1 20 Kb
 --------------------------------------------
 Memoria previo a intento de insercion de tarea
@@ -159,7 +159,7 @@ Particion 1 Ocupada con T2 10 Kb / puntero: False
 Particion 2 Ocupada con T3 40 Kb / puntero: False
 Particion 3 de 80Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 10-------------
 T4 20 Kb
 T5 30 Kb
 T6 20 Kb
@@ -170,14 +170,14 @@ T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T4 20 Kb
 (Tiempo de seleccion) 1
-Tiempo 11 / Fragmentacion Externa: 1330
+Tiempo 10 / Fragmentacion Externa: 1330
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 11 / Fragmentacion Externa: 1430
 Comienza tarea: T4 20 Kb en tiempo 12
 Tiempo 12 / Fragmentacion Externa: 1510
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 12---------------
 T2 10 Kb
 T3 40 Kb
 T4 20 Kb
@@ -190,8 +190,8 @@ Particion 2 Ocupada con T3 40 Kb / puntero: False
 Particion 3 de 80Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 13
-Liberando memoria
-Termino T3 40 Kb
+Liberando memoria en tiempo: 13
+Termino T3 40 Kb en 13
 Tiempo total: 7
 Tiempo servicio: 4
 Tiempo retorno normalizado: 1.75
@@ -207,7 +207,7 @@ Deframentando...
 T3 40 Kb
 Tiempo 13 / Fragmentacion Externa: 1630
 (Tiempo de liberacion) 1 => Tiempo actual: 14
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 14--------------
 T1 20 Kb
 T3 40 Kb
 --------------------------------------------
@@ -217,7 +217,7 @@ Particion 0 Ocupada con T4 20 Kb / puntero: False
 Particion 1 Ocupada con T2 10 Kb / puntero: False
 Particion 2 de 120Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 14-------------
 T5 30 Kb
 T6 20 Kb
 T7 10 Kb
@@ -227,14 +227,14 @@ T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T5 30 Kb
 (Tiempo de seleccion) 1
-Tiempo 15 / Fragmentacion Externa: 1750
+Tiempo 14 / Fragmentacion Externa: 1750
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 15 / Fragmentacion Externa: 1870
 Comienza tarea: T5 30 Kb en tiempo 16
 Tiempo 16 / Fragmentacion Externa: 1960
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 16---------------
 T2 10 Kb
 T4 20 Kb
 T5 30 Kb
@@ -247,8 +247,8 @@ Particion 2 Ocupada con T5 30 Kb / puntero: False
 Particion 3 de 90Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 17
-Liberando memoria
-Termino T2 10 Kb
+Liberando memoria en tiempo: 17
+Termino T2 10 Kb en 17
 Tiempo total: 14
 Tiempo servicio: 10
 Tiempo retorno normalizado: 1.4
@@ -267,7 +267,7 @@ Deframentando...
 T2 10 Kb
 Tiempo 17 / Fragmentacion Externa: 2060
 (Tiempo de liberacion) 1 => Tiempo actual: 18
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 18--------------
 T1 20 Kb
 T3 40 Kb
 T2 10 Kb
@@ -279,7 +279,7 @@ Particion 1 de 10Kb libre / puntero: False
 Particion 2 Ocupada con T5 30 Kb / puntero: False
 Particion 3 de 90Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 18-------------
 T6 20 Kb
 T7 10 Kb
 T8 30 Kb
@@ -288,14 +288,14 @@ T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T6 20 Kb
 (Tiempo de seleccion) 1
-Tiempo 19 / Fragmentacion Externa: 2160
+Tiempo 18 / Fragmentacion Externa: 2160
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 19 / Fragmentacion Externa: 2260
 Comienza tarea: T6 20 Kb en tiempo 20
 Tiempo 20 / Fragmentacion Externa: 2340
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 20---------------
 T4 20 Kb
 T5 30 Kb
 T6 20 Kb
@@ -309,8 +309,8 @@ Particion 3 Ocupada con T6 20 Kb / puntero: False
 Particion 4 de 70Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 21
-Liberando memoria
-Termino T5 30 Kb
+Liberando memoria en tiempo: 21
+Termino T5 30 Kb en 21
 Tiempo total: 7
 Tiempo servicio: 2
 Tiempo retorno normalizado: 3.5
@@ -329,7 +329,7 @@ Deframentando...
 T5 30 Kb
 Tiempo 21 / Fragmentacion Externa: 2450
 (Tiempo de liberacion) 1 => Tiempo actual: 22
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 22--------------
 T1 20 Kb
 T3 40 Kb
 T2 10 Kb
@@ -342,7 +342,7 @@ Particion 1 de 40Kb libre / puntero: False
 Particion 2 Ocupada con T6 20 Kb / puntero: False
 Particion 3 de 70Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 22-------------
 T7 10 Kb
 T8 30 Kb
 T9 50 Kb
@@ -350,14 +350,14 @@ T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T7 10 Kb
 (Tiempo de seleccion) 1
-Tiempo 23 / Fragmentacion Externa: 2560
+Tiempo 22 / Fragmentacion Externa: 2560
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 23 / Fragmentacion Externa: 2670
 Comienza tarea: T7 10 Kb en tiempo 24
 Tiempo 24 / Fragmentacion Externa: 2770
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 24---------------
 T4 20 Kb
 T6 20 Kb
 T7 10 Kb
@@ -371,8 +371,8 @@ Particion 3 Ocupada con T6 20 Kb / puntero: False
 Particion 4 de 70Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 25
-Liberando memoria
-Termino T4 20 Kb
+Liberando memoria en tiempo: 25
+Termino T4 20 Kb en 25
 Tiempo total: 15
 Tiempo servicio: 11
 Tiempo retorno normalizado: 1.3636363636363635
@@ -394,7 +394,7 @@ Deframentando...
 T4 20 Kb
 Tiempo 25 / Fragmentacion Externa: 2890
 (Tiempo de liberacion) 1 => Tiempo actual: 26
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 26--------------
 T1 20 Kb
 T3 40 Kb
 T2 10 Kb
@@ -409,21 +409,21 @@ Particion 2 de 30Kb libre / puntero: False
 Particion 3 Ocupada con T6 20 Kb / puntero: False
 Particion 4 de 70Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 26-------------
 T8 30 Kb
 T9 50 Kb
 T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T8 30 Kb
 (Tiempo de seleccion) 1
-Tiempo 27 / Fragmentacion Externa: 3010
+Tiempo 26 / Fragmentacion Externa: 3010
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 27 / Fragmentacion Externa: 3130
 Comienza tarea: T8 30 Kb en tiempo 28
 Tiempo 28 / Fragmentacion Externa: 3220
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 28---------------
 T6 20 Kb
 T7 10 Kb
 T8 30 Kb
@@ -437,12 +437,12 @@ Particion 3 Ocupada con T6 20 Kb / puntero: False
 Particion 4 de 70Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 29
-Liberando memoria
-Termino T6 20 Kb
+Liberando memoria en tiempo: 29
+Termino T6 20 Kb en 29
 Tiempo total: 11
 Tiempo servicio: 9
 Tiempo retorno normalizado: 1.2222222222222223
-Termino T7 10 Kb
+Termino T7 10 Kb en 29
 Tiempo total: 7
 Tiempo servicio: 3
 Tiempo retorno normalizado: 2.3333333333333335
@@ -462,7 +462,7 @@ Tiempo 29 / Fragmentacion Externa: 3340
 T7 10 Kb
 Tiempo 30 / Fragmentacion Externa: 3450
 (Tiempo de liberacion) 1 => Tiempo actual: 31
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 31--------------
 T1 20 Kb
 T3 40 Kb
 T2 10 Kb
@@ -477,20 +477,20 @@ Particion 0 de 30Kb libre / puntero: False
 Particion 1 Ocupada con T8 30 Kb / puntero: False
 Particion 2 de 90Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 31-------------
 T9 50 Kb
 T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T9 50 Kb
 (Tiempo de seleccion) 1
-Tiempo 32 / Fragmentacion Externa: 3560
+Tiempo 31 / Fragmentacion Externa: 3560
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 32 / Fragmentacion Externa: 3680
 Comienza tarea: T9 50 Kb en tiempo 33
 Tiempo 33 / Fragmentacion Externa: 3750
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 33---------------
 T8 30 Kb
 T9 50 Kb
 --------------------------------------------
@@ -502,8 +502,8 @@ Particion 2 Ocupada con T9 50 Kb / puntero: False
 Particion 3 de 40Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 34
-Liberando memoria
-Termino T8 30 Kb
+Liberando memoria en tiempo: 34
+Termino T8 30 Kb en 34
 Tiempo total: 8
 Tiempo servicio: 2
 Tiempo retorno normalizado: 4.0
@@ -520,7 +520,7 @@ Deframentando...
 T8 30 Kb
 Tiempo 34 / Fragmentacion Externa: 3850
 (Tiempo de liberacion) 1 => Tiempo actual: 35
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 35--------------
 T1 20 Kb
 T3 40 Kb
 T2 10 Kb
@@ -536,19 +536,19 @@ Particion 0 de 60Kb libre / puntero: False
 Particion 1 Ocupada con T9 50 Kb / puntero: False
 Particion 2 de 40Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 35-------------
 T10 10 Kb
 --------------------------------------------
 Siguiente tarea a ubicar: T10 10 Kb
 (Tiempo de seleccion) 1
-Tiempo 36 / Fragmentacion Externa: 3950
+Tiempo 35 / Fragmentacion Externa: 3950
 FirstFit ejecutando seleccion de particion
 FirstFit encontro lugar
 (Tiempo de asignacion) 1
 Tiempo 36 / Fragmentacion Externa: 4050
 Comienza tarea: T10 10 Kb en tiempo 37
 Tiempo 37 / Fragmentacion Externa: 4140
--------------TAREAS EJECUTANDO-------------
+-------------TAREAS EJECUTANDO: Tiempo 37---------------
 T9 50 Kb
 T10 10 Kb
 --------------------------------------------
@@ -560,8 +560,8 @@ Particion 2 Ocupada con T9 50 Kb / puntero: False
 Particion 3 de 40Kb libre / puntero: False
 --------------------------------------------
 Tiempo: 38
-Liberando memoria
-Termino T9 50 Kb
+Liberando memoria en tiempo: 38
+Termino T9 50 Kb en 38
 Tiempo total: 7
 Tiempo servicio: 3
 Tiempo retorno normalizado: 2.3333333333333335
@@ -574,7 +574,7 @@ Deframentando...
 (Defrag) Ultima particion libre
 T9 50 Kb
 (Tiempo de liberacion) 1 => Tiempo actual: 39
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 39--------------
 T1 20 Kb
 T3 40 Kb
 T2 10 Kb
@@ -590,11 +590,11 @@ Memoria previo a intento de insercion de tarea
 Particion 0 Ocupada con T10 10 Kb / puntero: False
 Particion 1 de 140Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 39-------------
 --------------------------------------------
 Tiempo: 40
-Liberando memoria
-Termino T10 10 Kb
+Liberando memoria en tiempo: 40
+Termino T10 10 Kb en 40
 Tiempo total: 5
 Tiempo servicio: 2
 Tiempo retorno normalizado: 2.5
@@ -605,7 +605,7 @@ Deframentando...
 (Defrag) Ultima particion libre
 T10 10 Kb
 (Tiempo de liberacion) 1 => Tiempo actual: 41
--------------TAREAS FINALIZADAS-------------
+-------------TAREAS FINALIZADAS: Tiempo 41--------------
 T1 20 Kb
 T3 40 Kb
 T2 10 Kb
@@ -621,7 +621,7 @@ Memoria previo a intento de insercion de tarea
 ------------------Memoria-------------------
 Particion 0 de 150Kb libre / puntero: False
 --------------------------------------------
--------------TAREAS POR EJECUTAR-------------
+-------------TAREAS POR EJECUTAR: Tiempo 41-------------
 --------------------------------------------
 Calculando resultados
 Tiempo de retorno de la tanda: 40
